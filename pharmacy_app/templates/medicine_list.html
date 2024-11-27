@@ -1,0 +1,13 @@
+{%  extends "base.html" %}
+{% block content %}
+    <h2>Medicine List</h2>
+    <ul>
+        {% for medicine in medicines %}
+        <li>{{ medicine.name}} - {{ medicine.category }} - ksh{{ medicine.price }}
+            <a href="{% url 'medicine_update' medicine.pk %}">Edit</a>
+            <a href="{% url 'medicine_delete' medicine.pk %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+<a href="{% url 'medicine_create' %}">Add New Medicine</a>
+{% endblock %}
