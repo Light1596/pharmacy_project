@@ -1,13 +1,45 @@
-{%  extends "base.html" %}
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
-    <h2>Medicine List</h2>
-    <ul>
-        {% for medicine in medicines %}
-        <li>{{ medicine.name}} - {{ medicine.category }} - ksh{{ medicine.price }}
-            <a href="{% url 'medicine_update' medicine.pk %}">Edit</a>
-            <a href="{% url 'medicine_delete' medicine.pk %}">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
-<a href="{% url 'medicine_create' %}">Add New Medicine</a>
+<div class="container mt-4">
+  <h2 class="text-center">Medicine Catalog</h2>
+
+  <!-- Search Bar -->
+  <form method="GET" action="{% url 'medicine_list' %}" class="my-3">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search Medicines..." name="search">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Medicines Grid -->
+  <div class="row">
+    {% for medicine in medicines %}
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ medicine.name }}</h5>
+          <p class="card-text text-muted">{{ medicine.category }}</p>
+          <p class="text-success"><strong>Ksh {{ medicine.price }}</strong></p>
+          {% if medicine.image %}
+            <img src="{{ medicine.image.url }}" alt="{{ medicine.name }}" width="150" height="150">
+          {% else %}
+            <img src="{% static 'images/img.png' %}" alt="No image" width="150" height="150">
+          {% endif %}
+          <div class="d-flex justify-content-between">
+            {% if request.user.is_staff %}
+            <a href="{% url 'medicine_update' medicine.pk %}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'medicine_delete' medicine.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            {% else %}
+            <a href="{% url 'add_to_cart' medicine.pk %}" class="btn btn-primary btn-sm">Add to Cart</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

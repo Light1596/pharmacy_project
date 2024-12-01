@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, eum!
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <!-- Hero Section -->
+  <div class="jumbotron text-center bg-primary text-white">
+    <h1 class="display-4">Welcome to the Online Pharmacy</h1>
+    <p class="lead">Get quality medicines at the best prices, delivered to your doorstep.</p>
+    <a href="{% url 'medicine_list' %}" class="btn btn-light btn-lg">Shop Now</a>
+  </div>
+
+  <!-- Featured Medicines -->
+  <h2 class="my-4 text-center">Featured Medicines</h2>
+  <div class="row">
+    {% for medicine in medicines|slice:":4" %}
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top" src="{{ medicine.image.url }}" alt="{{ medicine.name }}" style="height: 200px;">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ medicine.name }}</h5>
+          <p class="card-text text-muted">{{ medicine.category }}</p>
+          <p class="text-success"><strong>Ksh {{ medicine.price }}</strong></p>
+          <a href="{% url 'add_to_cart' medicine.pk %}" class="btn btn-primary btn-sm">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
