@@ -21,7 +21,28 @@ def register(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    # Query medicines by category (example categories: 'Painkillers', 'Antibiotics', etc.)
+    medicines_by_category = {
+        'Painkillers': Medicine.objects.filter(category='Painkillers')[:4],
+        'Antibiotics': Medicine.objects.filter(category='Antibiotics')[:4],
+        'Vitamins': Medicine.objects.filter(category='Vitamins')[:4],
+    }
+
+    # Carousel images (replace with actual file paths or image URLs from your static folder)
+    carousel_images = [
+        'images/medicine2.jpg',
+        'images/capsules.jpg',
+        'images/tablets.jpg',
+    ]
+
+    # Context to pass to the template
+    context = {
+        'medicines_by_category': medicines_by_category,
+        'carousel_images': carousel_images,
+    }
+
+    return render(request, 'base.html', context)
+
 
 # List all medicines
 def medicine_list(request):
