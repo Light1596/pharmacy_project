@@ -24,7 +24,7 @@
         <td>{{ item.quantity }}</td>
         <td>Ksh {{ item.item_total }}</td>
         <td>
-          <a href="{% url 'remove_from_cart' item.medicine.pk %}" class="btn btn-danger btn-sm">Remove</a>
+          <a href="{% url 'remove_from_cart' item.medicine.id %}" class="btn btn-danger btn-sm">Remove</a>
         </td>
       </tr>
       {% endfor %}
@@ -32,7 +32,7 @@
   </table>
   <p class="text-right"><strong>Total Price: Ksh {{ total_price }}</strong></p>
   <a href="{% url 'medicine_list' %}" class="btn btn-primary">Continue Shopping</a>
-  <button class="btn btn-success">Checkout</button>
+  <a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
   {% else %}
   <p>Your cart is empty. <a href="{% url 'medicine_list' %}">Start Shopping</a></p>
   {% endif %}

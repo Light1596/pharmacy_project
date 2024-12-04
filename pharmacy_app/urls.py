@@ -20,5 +20,7 @@ urlpatterns = [
     path('profile/', views.view_profile, name='view_profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('about_us/', views.about_us, name='about_us'),
-    path('services/', views.services, name="services")
+    path('services/', views.services, name="services"),
+    path('upload_prescription/', views.upload_prescription, name='upload_prescription'),
+    path('book_consultation/', views.book_consultation, name='book_consultation'),
 ]

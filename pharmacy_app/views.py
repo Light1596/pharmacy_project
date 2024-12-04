@@ -1,5 +1,8 @@
+from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -7,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from unicodedata import category
 
 from pharmacy_app.models import Medicine, CartItem, UserProfile
 from pharmacy_app.forms import MedicineForm
@@ -30,6 +34,9 @@ def home(request):
         'Painkillers': Medicine.objects.filter(category='Painkillers')[:4],
         'Antibiotics': Medicine.objects.filter(category='Antibiotics')[:4],
         'Vitamins': Medicine.objects.filter(category='Vitamins')[:4],
+        'Cold and Flu' : Medicine.objects.filter(category='Cold and Flu')[:4],
+        'Skin Care' : Medicine.objects.filter(category='Skin Care')[:4],
+        'Digestive Health' : Medicine.objects.filter(category='Digestive Health')[:4]
     }
 
     # Carousel images (replace with actual file paths or image URLs from your static folder)
@@ -68,8 +75,11 @@ def medicine_create(request):
         if form.is_valid():
             form.save()
             return redirect('medicine_list')
+        else:
+            print(form.errors)
     else:
         form = MedicineForm()
+
     return render(request, 'medicine_form.html',{'form': form})
 
 # Update an existing medicine
@@ -96,19 +106,8 @@ def medicine_delete(request, pk):
 
 @login_required
 def cart_view(request):
-    cart_items = []
-    total_price = 0
-
-    for item in request.session.get('cart', []):
-        medicine = Medicine.objects.get(id=item['medicine_id'])
-        quantity = item['quantity']
-        item_total = medicine.price * quantity
-        total_price += item_total
-        cart_items.append({
-            'medicine': medicine,
-            'quantity': quantity,
-            'item_total': item_total,
-        })
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.medicine.price * item.quantity for item in cart_items)
 
     return render(request, 'cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
@@ -124,11 +123,20 @@ def add_to_cart(request,pk):
     return redirect('cart')
 
 # Remove an item from the cart
+# @login_required
+# def remove_from_cart(request, pk):
+#     cart_item = get_object_or_404(CartItem, pk=pk, user=request.user)
+#     cart_item.delete()
+#     return redirect('cart')
+
 @login_required
 def remove_from_cart(request, pk):
-    cart_item = get_object_or_404(CartItem, pk=pk, user=request.user)
-    cart_item.delete()
-    return redirect('cart')
+    try:
+        cart_item = CartItem.objects.get(pk=pk, user=request.user)
+        cart_item.delete()
+        return redirect('cart')
+    except CartItem.DoesNotExist:
+        raise Http404("Cart item does not exist.")
 
 # Checkout
 @login_required
@@ -185,4 +193,37 @@ def about_us(request):
     return render(request, 'about_us.html')
 
 def services(request):
+    return render(request, 'services.html')
+
+
+def upload_prescription(request):
+    if request.method == 'POST':
+        prescription_file = request.FILES['prescription']
+        doctor_email = 'lightsimiyu@gmail.com'  # Replace with the doctor's email
+        send_mail(
+            'New Prescription Uploaded',
+            f'A new prescription has been uploaded by {request.user.username}.',
+            settings.EMAIL_HOST_USER,
+            [doctor_email],
+            fail_silently=False,
+        )
+        messages.success(request, "Prescription uploaded successfully and sent to the doctor.")
+        return redirect('services')
+    return render(request, 'services.html')
+
+def book_consultation(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+        doctor_email = 'lightsimiyu@gmail.com'
+        send_mail(
+            'Consultation Request',
+            f'Name: {name}\nEmail: {email}\nMessage: {message}',
+            settings.EMAIL_HOST_USER,
+            [doctor_email],
+            fail_silently=False,
+        )
+        messages.success(request, "Consultation request sent successfully.")
+        return redirect('services')
     return render(request, 'services.html')

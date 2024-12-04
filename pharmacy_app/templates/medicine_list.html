@@ -4,6 +4,13 @@
 <div class="container mt-4">
   <h2 class="text-center">Medicine Catalog</h2>
 
+  <!-- Admin Add New Medicine Button -->
+  {% if request.user.is_staff %}
+  <div class="text-right mb-3">
+    <a href="{% url 'medicine_create' %}" class="btn btn-success">Add New Medicine</a>
+  </div>
+  {% endif %}
+
   <!-- Search Bar -->
   <form method="GET" action="{% url 'medicine_list' %}" class="my-3">
     <div class="input-group">
@@ -14,7 +21,7 @@
     </div>
   </form>
 
-  <!-- Medicines Grid -->
+   <!-- Medicines Grid -->
   <div class="row">
     {% for medicine in medicines %}
     <div class="col-md-4 mb-3">
@@ -23,17 +30,20 @@
           <h5 class="card-title">{{ medicine.name }}</h5>
           <p class="card-text text-muted">{{ medicine.category }}</p>
           <p class="text-success"><strong>Ksh {{ medicine.price }}</strong></p>
+          <p><strong>Units in Stock:</strong> {{ medicine.stock }}</p>
           {% if medicine.image %}
-            <img src="{{ medicine.image.url }}" alt="{{ medicine.name }}" width="150" height="150">
+            <img src="{{ medicine.image.url }}" alt="{{ medicine.name }}" class="img-fluid mb-3">
           {% else %}
-            <img src="{% static 'images/img.png' %}" alt="No image" width="150" height="150">
+            <img src="{% static 'images/img.png' %}" alt="No image" class="img-fluid mb-3">
           {% endif %}
           <div class="d-flex justify-content-between">
             {% if request.user.is_staff %}
             <a href="{% url 'medicine_update' medicine.pk %}" class="btn btn-warning btn-sm">Edit</a>
             <a href="{% url 'medicine_delete' medicine.pk %}" class="btn btn-danger btn-sm">Delete</a>
-            {% else %}
+            {% elif medicine.stock > 0 %}
             <a href="{% url 'add_to_cart' medicine.pk %}" class="btn btn-primary btn-sm">Add to Cart</a>
+            {% else %}
+            <button class="btn btn-secondary btn-sm" disabled>Out of Stock</button>
             {% endif %}
           </div>
         </div>

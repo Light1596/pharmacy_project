@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_ROOT, STATICFILES_DIRS
+from django.conf.global_settings import MEDIA_ROOT, STATICFILES_DIRS, EMAIL_BACKEND, EMAIL_HOST_PASSWORD
 
 # from django.conf.global_settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
 
@@ -136,3 +136,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'lightsituma@gmail.com'
+EMAIL_HOST_PASSWORD = 'eltr ofuo nygs bpuv'

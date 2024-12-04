@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-
-    <h2>Checkout Complete</h2>
-    <p>Thank you for your purchase!</p>
-    <a href="{% url 'medicine_list' %}">Continue Shopping</a>
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-success text-white text-center">
+      <h3>Checkout Complete</h3>
+    </div>
+    <div class="card-body text-center">
+      <p class="lead">Thank you for your purchase!</p>
+      <a href="{% url 'medicine_list' %}" class="btn btn-primary btn-lg">Continue Shopping</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,8 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Checkout</h2>
-<form action="" method="post">
-    {% csrf_token %}
-    <button type="submit">Confirm Checkout</button>
-</form>
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white text-center">
+      <h3>Checkout</h3>
+    </div>
+    <div class="card-body">
+      <form action="" method="post">
+        {% csrf_token %}
+
+        <!-- Checkout Information Section -->
+        <div class="form-group mb-4">
+          <h5>Billing Information</h5>
+          <!-- You can add more fields like name, address, etc. -->
+          <label for="billing_name">Name</label>
+          <input type="text" class="form-control" id="billing_name" name="billing_name" required>
+        </div>
+
+        <!-- Payment Button -->
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-success btn-lg">Confirm Checkout</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
