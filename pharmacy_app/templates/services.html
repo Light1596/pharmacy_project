@@ -2,7 +2,13 @@
 {% block content %}
 <div class="container my-5">
     <h2 class="text-center mb-4">Our Services</h2>
+        <p>Here’s an expanded version of that line with more detail:
 
+"We provide professional consultation services tailored to your specific health needs, based on a valid medical
+            prescription. Our team of qualified healthcare providers offers personalized advice and guidance
+            to ensure you receive the best care and treatment options. Whether you're seeking recommendations
+            for managing a condition, understanding prescribed medications, or need expert advice on health management,
+            we are here to assist you every step of the way, always ensuring that our recommendations are aligned</p>
     <h3 class="mt-5">Upload Your Prescription</h3>
     <form action="{% url 'upload_prescription' %}" method="post" enctype="multipart/form-data" class="my-4">
         {% csrf_token %}
