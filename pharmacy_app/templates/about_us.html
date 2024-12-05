@@ -2,50 +2,66 @@
 {% load static %}
 {% block content %}
 <div class="container my-5">
-    <h2 class="text-center mb-4">About Us</h2>
-    <p class="text-justify">
-        Welcome to our Online Pharmacy! We are committed to providing high-quality medicines and healthcare services
-        to our customers. Our team is dedicated to ensuring your health and well-being through affordable and convenient solutions.
-    </p>
+    <!-- About Us Section -->
+    <div class="p-4 rounded" style="background-color: #f8f9fa;">
+        <h2 class="text-center mb-4">About Us</h2>
+        <p class="text-justify">
+            Welcome to our Online Pharmacy! We are committed to providing high-quality medicines and healthcare services
+            to our customers. Our team is dedicated to ensuring your health and well-being through affordable and convenient solutions.
+        </p>
+    </div>
 
-    <h3 class="mt-5 text-center">Meet Our Doctors</h3>
-    <div class="row my-4">
-        <!-- Doctor 1 -->
-        <div class="col-md-6 text-center">
-            <img src="{% static 'images/doctor1.png' %}" class="rounded-circle mb-3" alt="Doctor 1" width="150">
-            <h4>Dr. Jane Doe</h4>
-            <p>Email: <a href="mailto:lightsituma@gmail.com">jane.doe@gmail.com</a></p>
-            <p>
-                <strong>Qualifications:</strong> MBBS, MD (General Medicine)<br>
-                <strong>Experience:</strong> Over 10 years in clinical practice specializing in patient-centered care and diagnostics.
-            </p>
-        </div>
-        <!-- Doctor 2 -->
-        <div class="col-md-6 text-center">
-            <img src="{% static 'images/doctor2.png' %}" class="rounded-circle mb-3" alt="Doctor 2" width="150">
-            <h4>Dr. John Smith</h4>
-            <p>Email: <a href="mailto:lightsimiyu@gmail.com">john.smith@gmail.com</a></p>
-            <p>
-                <strong>Qualifications:</strong> PharmD, MPharm<br>
-                <strong>Experience:</strong> Specialist in pharmaceutical care with 8+ years of experience in hospital and retail pharmacy.
-            </p>
+    <!-- Doctors Section -->
+    <div class="p-4 mt-5 rounded" style="background-color: #eaf4fc;">
+        <h3 class="text-center mb-4">Meet Our Doctors</h3>
+        <div class="row">
+            <!-- Doctor 1 -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm text-center p-4 h-100">
+                    <img src="{% static 'images/doctor1.png' %}" class="rounded-circle mb-3 mx-auto" alt="Doctor 1" width="150">
+                    <h4>Dr. Jane Doe</h4>
+                    <p>Email: <a href="mailto:lightsituma@gmail.com">jane.doe@gmail.com</a></p>
+                    <p>
+                        <strong>Qualifications:</strong> MBBS, MD (General Medicine)<br>
+                        <strong>Experience:</strong> Over 10 years in clinical practice specializing in patient-centered care and diagnostics.
+                    </p>
+                </div>
+            </div>
+            <!-- Doctor 2 -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm text-center p-4 h-100">
+                    <img src="{% static 'images/doctor2.png' %}" class="rounded-circle mb-3 mx-auto" alt="Doctor 2" width="150">
+                    <h4>Dr. John Smith</h4>
+                    <p>Email: <a href="mailto:lightsimiyu@gmail.com">john.smith@gmail.com</a></p>
+                    <p>
+                        <strong>Qualifications:</strong> PharmD, MPharm<br>
+                        <strong>Experience:</strong> Specialist in pharmaceutical care with 8+ years of experience in hospital and retail pharmacy.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <h3 class="mt-5 text-center">Partner Hospitals and Agencies</h3>
-    <ul>
-        <li>City General Hospital</li>
-        <li>Global Health Clinics</li>
-        <li>National Pharmaceutical Association</li>
-    </ul>
+    <!-- Partner Hospitals Section -->
+    <div class="p-4 mt-5 rounded" style="background-color: #f9fdfb;">
+        <h3 class="text-center mb-4">Partner Hospitals and Agencies</h3>
+        <ul>
+            <li>City General Hospital</li>
+            <li>Global Health Clinics</li>
+            <li>National Pharmaceutical Association</li>
+        </ul>
+    </div>
 
-    <h3 class="mt-5 text-center">Find Us</h3>
-    <div class="mt-3">
-        <!-- Google Map -->
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2381.6950336565674!2d-6.260310784079547!3d53.34980567997942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670e9b02b61a7b%3A0x76c3f7b7ea83e43a!2sPharmacy!5e0!3m2!1sen!2s!4v1639846429792!5m2!1sen!2s"
-            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
-        </iframe>
+    <!-- Find Us Section -->
+    <div class="mt-5">
+        <h3 class="text-center">Find Us</h3>
+        <div class="mt-3">
+            <!-- Google Map -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2381.6950336565674!2d-6.260310784079547!3d53.34980567997942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670e9b02b61a7b%3A0x76c3f7b7ea83e43a!2sPharmacy!5e0!3m2!1sen!2s!4v1639846429792!5m2!1sen!2s"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
     </div>
 </div>
 {% endblock %}

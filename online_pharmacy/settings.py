@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
 
-from django.conf.global_settings import MEDIA_ROOT, STATICFILES_DIRS, EMAIL_BACKEND, EMAIL_HOST_PASSWORD
+from django.conf.global_settings import MEDIA_ROOT, STATICFILES_DIRS, EMAIL_BACKEND, EMAIL_HOST_PASSWORD, \
+    EMAIL_SSL_KEYFILE, EMAIL_SSL_CERTFILE
 
 # from django.conf.global_settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
 
@@ -81,7 +83,11 @@ WSGI_APPLICATION = 'online_pharmacy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR /'db.sqlite3',
+        # 'USER' : 'root',
+        # 'PASSWORD' : '',
+        # 'HOST' : '127.0.0.1',
+        # 'PORT' : '3306',
     }
 }
 
@@ -137,9 +143,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = '/'
 
+
+env = environ.Env()
+environ.Env.read_env()
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env.int('EMAIL_PORT')
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'lightsituma@gmail.com'
-EMAIL_HOST_PASSWORD = 'eltr ofuo nygs bpuv'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')

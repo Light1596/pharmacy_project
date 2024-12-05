@@ -26,4 +26,33 @@
     {% endfor %}
   </div>
 </div>
+
+<!-- Our Categories Section with different background -->
+<div class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center">Our Categories</h2>
+    {% for category, medicines in medicines_by_category.items %}
+    <h3 class="mt-4">{{ category }}</h3>
+    <div class="row">
+      {% for medicine in medicines %}
+      <div class="col-md-3 mb-3">
+        <div class="card">
+          {% if medicine.image %}
+          <img class="card-img-top" src="{{ medicine.image.url }}" alt="{{ medicine.name }}" style="height: 150px;">
+          {% else %}
+          <img class="card-img-top" src="{% static 'images/img.png' %}" alt="No Image" style="height: 150px;">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ medicine.name }}</h5>
+            <p class="text-success"><strong>Ksh {{ medicine.price }}</strong></p>
+            <a href="{% url 'add_to_cart' medicine.pk %}" class="btn btn-primary btn-sm">Add to Cart</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock %}

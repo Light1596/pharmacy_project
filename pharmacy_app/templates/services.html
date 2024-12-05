@@ -1,44 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container my-5">
-    <h2 class="text-center mb-4">Our Services</h2>
-        <p>Here’s an expanded version of that line with more detail:
+<div class="container my-5" style="background-color: #f0f8ff; padding: 20px; border-radius: 8px;">
+    <!-- Services Section -->
+    <div class="p-4 mb-5" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h2 class="text-center mb-4">Our Services</h2>
+        <p>
 
-"We provide professional consultation services tailored to your specific health needs, based on a valid medical
-            prescription. Our team of qualified healthcare providers offers personalized advice and guidance
-            to ensure you receive the best care and treatment options. Whether you're seeking recommendations
-            for managing a condition, understanding prescribed medications, or need expert advice on health management,
-            we are here to assist you every step of the way, always ensuring that our recommendations are aligned</p>
-    <h3 class="mt-5">Upload Your Prescription</h3>
-    <form action="{% url 'upload_prescription' %}" method="post" enctype="multipart/form-data" class="my-4">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="prescription">Upload Prescription</label>
-            <input type="file" class="form-control-file" id="prescription" name="prescription" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
-    <p>
-        Alternatively, click the WhatsApp link to chat with us directly:
-        <a href="https://wa.me/254798093549" class="btn btn-success btn-sm">Chat on WhatsApp</a>
-    </p>
+        We provide professional consultation services tailored to your specific health needs, based on a valid medical prescription. Our team of qualified healthcare providers offers personalized advice and guidance to ensure you receive the best care and treatment options. Whether you're seeking recommendations for managing a condition, understanding prescribed medications, or need expert advice on health management, we are here to assist you every step of the way, always ensuring that our recommendations are aligned with the latest medical standards.
+        </p>
+    </div>
 
-    <h3 class="mt-5">Consultation Services</h3>
-    <form action="{% url 'book_consultation' %}" method="post" class="my-4">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Your Message</label>
-            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Book Consultation</button>
-    </form>
+    <!-- Upload Prescription Section -->
+    <div class="p-4 mb-5" style="background-color: #e9f7f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3 class="text-center">Upload Your Prescription</h3>
+        <form action="{% url 'upload_prescription' %}" method="post" enctype="multipart/form-data" class="my-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="prescription">Upload Prescription</label>
+                <input type="file" class="form-control-file" id="prescription" name="prescription" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        <p class="text-center">
+            Alternatively, click the WhatsApp link to chat with us directly:
+            <a href="https://wa.me/254798093549" class="btn btn-success btn-sm">Chat on WhatsApp</a>
+        </p>
+    </div>
+
+    <!-- Consultation Services Section -->
+    <div class="p-4 mb-5" style="background-color: #f5f7fa; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3 class="text-center">Consultation Services</h3>
+        <form action="{% url 'book_consultation' %}" method="post" class="my-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Book Consultation</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

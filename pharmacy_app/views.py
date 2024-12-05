@@ -199,7 +199,7 @@ def services(request):
 def upload_prescription(request):
     if request.method == 'POST':
         prescription_file = request.FILES['prescription']
-        doctor_email = 'lightsimiyu@gmail.com'  # Replace with the doctor's email
+        doctor_email = 'lightsimiyu@gmail.com'
         send_mail(
             'New Prescription Uploaded',
             f'A new prescription has been uploaded by {request.user.username}.',

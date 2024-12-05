@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<div class="container-fluid" style="background-color: #f0f4f8; min-height: 100vh;">
+    <div class="row justify-content-center align-items-center" style="height: 100vh;">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card shadow-lg" style="border-radius: 15px;">
                 <div class="card-header text-center bg-primary text-white">
                     <h4>Login</h4>
                 </div>
@@ -11,14 +11,16 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         <!-- Django Form -->
-                        {{ form.as_p }}
+                        <div class="mb-3">
+                            {{ form.as_p }}
+                        </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+                    <p>Don't have an account? <a href="{% url 'register' %}" class="text-primary">Sign Up</a></p>
                 </div>
             </div>
         </div>

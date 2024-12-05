@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Confirm Delete</h2>
-    <p>Are you sure you want to delete {{ medicine.name }}?</p>
-<form action="" method="post">
-    {% csrf_token %}
-    <button type="Submit">Delete</button>
-    <a href="{% url 'medicine_list' %}"></a>
-</form>
+<div class="container my-5" style="background-color: #f9f9f9; border-radius: 10px; padding: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h2 class="text-center mb-4" style="color: #ff4d4d;">Confirm Delete</h2>
+    <p class="text-center" style="font-size: 1.2rem; color: #333333;">
+        Are you sure you want to delete <strong>{{ medicine.name }}</strong>?
+    </p>
+    <form action="" method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-lg my-3">Delete</button>
+        <a href="{% url 'medicine_list' %}" class="btn btn-secondary btn-lg my-3">Cancel</a>
+    </form>
+</div>
 {% endblock %}
