@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <div class="container mt-4">
   <!-- Hero Section -->
@@ -8,51 +9,81 @@
     <a href="{% url 'medicine_list' %}" class="btn btn-light btn-lg">Shop Now</a>
   </div>
 
-  <!-- Featured Medicines -->
-  <h2 class="my-4 text-center">Featured Medicines</h2>
+  <!--carousel-->
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for image in carousel_images %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for image in carousel_images %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{% static image %}" class="d-block w-100" alt="Banner {{ forloop.counter }}">
+                </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
   <div class="row">
-    {% for medicine in medicines|slice:":4" %}
-    <div class="col-md-3">
-      <div class="card">
-        <img class="card-img-top" src="{{ medicine.image.url }}" alt="{{ medicine.name }}" style="height: 200px;">
-        <div class="card-body text-center">
-          <h5 class="card-title">{{ medicine.name }}</h5>
-          <p class="card-text text-muted">{{ medicine.category }}</p>
-          <p class="text-success"><strong>Ksh {{ medicine.price }}</strong></p>
-          <a href="{% url 'add_to_cart' medicine.pk %}" class="btn btn-primary btn-sm">Add to Cart</a>
+    <!-- Sidebar Card -->
+    <div class="col-md-3 mt-5">
+      <div class="card sticky-top" style="background-color: #f9f5f0;">
+        <div class="card-body">
+          <h5 class="card-title text-center">Categories</h5>
+          <ul class="list-group">
+            {% for category, medicines in medicines_by_category.items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a href="#{{ category|slugify }}" class="text-decoration-none">{{ category }}</a>
+              <span class="badge badge-primary badge-pill">{{ medicines|length }}</span>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
     </div>
-    {% endfor %}
-  </div>
-</div>
 
-<!-- Our Categories Section with different background -->
-<div class="bg-light py-5">
-  <div class="container">
-    <h2 class="text-center">Our Categories</h2>
-    {% for category, medicines in medicines_by_category.items %}
-    <h3 class="mt-4">{{ category }}</h3>
-    <div class="row">
-      {% for medicine in medicines %}
-      <div class="col-md-3 mb-3">
-        <div class="card">
-          {% if medicine.image %}
-          <img class="card-img-top" src="{{ medicine.image.url }}" alt="{{ medicine.name }}" style="height: 150px;">
-          {% else %}
-          <img class="card-img-top" src="{% static 'images/img.png' %}" alt="No Image" style="height: 150px;">
-          {% endif %}
+    <!-- Categories Section -->
+    <div class="col-md-9">
+      <div class="py-5">
+        <h2 class="text-center">Our Categories</h2>
+        {% for category, medicines in medicines_by_category.items %}
+        <div id="{{ category|slugify }}" class="card my-4" style="background-color: #f9f5f0;">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title text-center">{{ category }}</h3>
+          </div>
           <div class="card-body">
-            <h5 class="card-title">{{ medicine.name }}</h5>
-            <p class="text-success"><strong>Ksh {{ medicine.price }}</strong></p>
-            <a href="{% url 'add_to_cart' medicine.pk %}" class="btn btn-primary btn-sm">Add to Cart</a>
+            <div class="row">
+              {% for medicine in medicines %}
+              <div class="col-md-4 mb-3">
+                <div class="card">
+                  {% if medicine.image %}
+                  <img class="card-img-top" src="{{ medicine.image.url }}" alt="{{ medicine.name }}" style="height: 150px;">
+                  {% else %}
+                  <img class="card-img-top" src="{% static 'images/img.png' %}" alt="No Image" style="height: 150px;">
+                  {% endif %}
+                  <div class="card-body">
+                    <h5 class="card-title">{{ medicine.name }}</h5>
+                    <p class="text-success"><strong>Ksh {{ medicine.price }}</strong></p>
+                    <a href="{% url 'add_to_cart' medicine.pk %}" class="btn btn-primary btn-sm">Add to Cart</a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
-
 {% endblock %}

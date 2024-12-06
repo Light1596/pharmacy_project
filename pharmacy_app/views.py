@@ -29,6 +29,7 @@ def register(request):
 
 
 def home(request):
+    medicines = Medicine.objects.all()
     # Query medicines by category (example categories: 'Painkillers', 'Antibiotics', etc.)
     medicines_by_category = {
         'Painkillers': Medicine.objects.filter(category='Painkillers')[:4],
@@ -52,7 +53,7 @@ def home(request):
         'carousel_images': carousel_images,
     }
 
-    return render(request, 'base.html', context)
+    return render(request, 'home.html', context)
 
 
 # List all medicines
