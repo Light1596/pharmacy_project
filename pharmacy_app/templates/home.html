@@ -6,7 +6,7 @@
   <div class="jumbotron text-center bg-primary text-white">
     <h1 class="display-4">Welcome to the Online Pharmacy</h1>
     <p class="lead">Get quality medicines at the best prices, delivered to your doorstep.</p>
-    <a href="{% url 'medicine_list' %}" class="btn btn-light btn-lg">Shop Now</a>
+    <a href="{% url 'home' %}#our-categories" class="btn btn-light btn-lg">Shop Now</a>
   </div>
 
   <!--carousel-->
@@ -54,7 +54,7 @@
     <!-- Categories Section -->
     <div class="col-md-9">
       <div class="py-5">
-        <h2 class="text-center">Our Categories</h2>
+        <h2 id="our-categories" class="text-center">Our Categories</h2>
         {% for category, medicines in medicines_by_category.items %}
         <div id="{{ category|slugify }}" class="card my-4" style="background-color: #f9f5f0;">
           <div class="card-header bg-primary text-white">

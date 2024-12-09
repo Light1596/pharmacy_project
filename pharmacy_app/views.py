@@ -123,12 +123,6 @@ def add_to_cart(request,pk):
         cart_item.save()
     return redirect('cart')
 
-# Remove an item from the cart
-# @login_required
-# def remove_from_cart(request, pk):
-#     cart_item = get_object_or_404(CartItem, pk=pk, user=request.user)
-#     cart_item.delete()
-#     return redirect('cart')
 
 @login_required
 def remove_from_cart(request, pk):
@@ -196,7 +190,7 @@ def about_us(request):
 def services(request):
     return render(request, 'services.html')
 
-
+@login_required()
 def upload_prescription(request):
     if request.method == 'POST':
         prescription_file = request.FILES['prescription']
